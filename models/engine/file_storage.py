@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
     This module takes cares of get and push
     our data in file.json

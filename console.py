@@ -119,10 +119,10 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 3:
             try:
                 type(eval(args[2])) != dict
-            except:
+            except NameError:
                 print("** value missing **")
                 return False
-        
+
         if len(args) == 4:
             obj = obj_dict["{}.{}".format(args[0], args[1])]
             if args[2] in obj.__class__.__dict__.keys():
@@ -140,7 +140,6 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         storage.save()
-
 
     def emptyline(self):
         """Do nothing when reveiving an empty line."""

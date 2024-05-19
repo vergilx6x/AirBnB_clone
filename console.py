@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Defines the AirBnB_clone console"""
 import cmd
 from models import storage
 from models.base_model import BaseModel
@@ -12,6 +12,13 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
+    """Command interpreter for AirBnb_clone
+    storage handling.
+
+    Attributes:
+    prompt : Command prompt.
+    classes : Available classes.
+    """
 
     prompt = ("(hbnb) ")
     classes = {
@@ -27,6 +34,9 @@ class HBNBCommand(cmd.Cmd):
     obj_dict = storage.all()
 
     def do_create(self, arg):
+        """Creates a class and prints it's id.
+        Usage: create <class>
+        """
         if (arg):
             class_name = arg
             if arg in HBNBCommand.classes:
@@ -39,6 +49,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
     def do_show(self, arg):
+        """Display the string representation of a class.
+        Usage: show <class> <id>
+        """
         args = arg.split()
         if not (args):
             print("** class name missing **")
@@ -52,6 +65,9 @@ class HBNBCommand(cmd.Cmd):
             print(storage.all()["{}.{}".format(args[0], args[1])])
 
     def do_destroy(self, arg):
+        """Deletes a class.
+        Usage: destroy <class> <id>
+        """
         args = arg.split()
         if not (args):
             print("** class name missing **")
@@ -66,6 +82,10 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
+        """Display string representation of all classes,
+        or a specific type.
+        Usage : all or all <class>
+        """
         args = arg.split()
         if len(args) > 0 and args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -79,6 +99,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
 
     def do_update(self, arg):
+        """Updates a class"""
         obj_dict = storage.all()
         args = arg.split()
         if len(args) == 0:
@@ -121,15 +142,19 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def emptyline(self):
+        """Do nothing when reveiving an empty line."""
         pass
 
     def do_EOF(self, line):
+        """EOF signal to exit the program."""
         print()
         return True
 
     def do_quit(self, line):
+        '''Quit command to exit the program'''
         return True
 
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+

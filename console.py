@@ -19,7 +19,6 @@ class HBNBCommand(cmd.Cmd):
     prompt : Command prompt.
     classes : Available classes.
     """
-
     prompt = ("(hbnb) ")
     classes = {
         "BaseModel": BaseModel,
@@ -30,7 +29,6 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Review": Review
     }
-
     obj_dict = storage.all()
 
     def do_create(self, arg):
@@ -122,7 +120,6 @@ class HBNBCommand(cmd.Cmd):
             except NameError:
                 print("** value missing **")
                 return False
-
         if len(args) == 4:
             obj = obj_dict["{}.{}".format(args[0], args[1])]
             if args[2] in obj.__class__.__dict__.keys():
@@ -157,4 +154,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

@@ -19,6 +19,8 @@ class HBNBCommand(cmd.Cmd):
     prompt : Command prompt.
     classes : Available classes.
     """
+
+    obj_dict = storage.all()
     prompt = ("(hbnb) ")
     classes = {
         "BaseModel": BaseModel,
@@ -29,7 +31,6 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Review": Review
     }
-    obj_dict = storage.all()
 
     def do_create(self, arg):
         """Creates a class and prints it's id.
@@ -97,7 +98,9 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
 
     def do_update(self, arg):
-        """Updates a class"""
+        """Updates a class
+        Usage: update <class> <id> <attribute> <attribute value>
+        """
         obj_dict = storage.all()
         args = arg.split()
         if len(args) == 0:
@@ -105,6 +108,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return False
         if len(args) == 1:
             print("** instance id missing **")
             return False
@@ -123,8 +127,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 4:
             obj = obj_dict["{}.{}".format(args[0], args[1])]
             if args[2] in obj.__class__.__dict__.keys():
-                valtype = type(obj.__class__.__dict__[args[2]])
-                obj.__dict__[args[2]] = valtype(args[3])
+                value_type = type(obj.__class__.__dict__[args[2]])
+                obj.__dict__[args[2]] = value_type(args[3])
             else:
                 obj.__dict__[args[2]] = args[3]
         elif type(eval(args[2])) == dict:
